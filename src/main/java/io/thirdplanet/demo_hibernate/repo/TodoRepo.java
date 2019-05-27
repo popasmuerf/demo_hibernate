@@ -12,11 +12,15 @@ import org.springframework.data.repository.query.Param;
 import io.thirdplanet.demo_hibernate.domain.Todo;
 
 
+//url :  https://www.petrikainulainen.net/programming/spring-framework/spring-data-jpa-tutorial-creating-database-queries-from-method-names/
+
+
 //@NoRepositoryBean
 @org.springframework.stereotype.Repository
 public interface TodoRepo extends CrudRepository<Todo,Long> {
 
     
+    //named quieries....
 
     //@Query("SELECT * from Todo todo WHERE todo.id = :id")
     Optional<Todo> findById(Long id);
@@ -31,5 +35,11 @@ public interface TodoRepo extends CrudRepository<Todo,Long> {
     
     @Query("SELECT todo.title FROM Todo todo WHERE todo.title= :title")
     List<String> findTitleByTitle(@Param("title")String title);
+
+
+    //Method Queries
+    Optional<List<Todo>> findByTitleOrDescription(String title,String description);
+    Optional<List<Long>> countByTitle(String title);
+
     
 }
